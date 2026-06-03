@@ -8,10 +8,10 @@
 
     <groupId>com.mauricio</groupId>
     <artifactId>sistema-gestion-pedidos</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <packaging>jar</packaging>
     <name>Sistema de Gestion de Pedidos</name>
-    <description>Proyecto Entornos de Desarrollo - Parte 3</description>
+    <description>Proyecto Entornos de Desarrollo - Parte 4: Automatización y Testing de Integración</description>
 
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
@@ -22,6 +22,7 @@
         <sonar.projectKey>sistema-gestion-pedidos</sonar.projectKey>
         <sonar.token>squ_73df06efb06bf3e21ddeb190620099fc656986ee</sonar.token>
         <sonar.java.source>17</sonar.java.source>
+        <!-- Excluimos Main.java del análisis de cobertura -->
         <sonar.coverage.exclusions>**/Main.java</sonar.coverage.exclusions>
         <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <sonar.scm.disabled>true</sonar.scm.disabled>
@@ -29,6 +30,7 @@
 
     <dependencies>
 
+        <!-- JUnit 5 (Jupiter) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -36,6 +38,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- JUnit 5 Parametrized Tests -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
@@ -48,6 +51,7 @@
     <build>
         <plugins>
 
+            <!-- Compilador Java 17 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -57,6 +61,7 @@
                 </configuration>
             </plugin>
 
+            <!-- Surefire: ejecutar tests JUnit 5 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -68,6 +73,7 @@
                 </configuration>
             </plugin>
 
+            <!-- JaCoCo: cobertura de código -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -82,9 +88,30 @@
                         <phase>verify</phase>
                         <goals><goal>report</goal></goals>
                     </execution>
+                    <!-- Verificación mínima de cobertura: 80% -->
+                    <execution>
+                        <id>check</id>
+                        <phase>verify</phase>
+                        <goals><goal>check</goal></goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>INSTRUCTION</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.80</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 
+            <!-- SonarQube -->
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>

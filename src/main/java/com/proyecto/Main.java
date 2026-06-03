@@ -1,89 +1,80 @@
 package com.proyecto;
 
 
-
 public class Main {
 
     public static void main(String[] args) {
 
-        //  1. Crear clientes 
-        Cliente cliente1 = new Cliente(
-                "Mauricio León",
-                "mauricio@email.com",
-                "Calle Mayor 10, Madrid"
+        System.out.println("=== SISTEMA DE GESTIÓN DE PEDIDOS - PARTE 4 ===\n");
+
+        // 1. Crear tienda
+        Tienda tienda = new Tienda("TechShop Online");
+
+        // 2. Crear clientes (con nuevos atributos Parte 4)
+        Cliente clienteVip = new Cliente(
+                1, "Mauricio León", "mauricio@email.com",
+                "Calle Mayor 10, Madrid", 5, true, "España"
         );
 
-        Cliente cliente2 = new Cliente(
-                "Ana García",
-                "ana.garcia@email.com",
-                "Av. Diagonal 45, Barcelona"
+        Cliente clienteNormal = new Cliente(
+                2, "Ana García", "ana@email.com",
+                "Av. Diagonal 45, Barcelona", 2, false, "Francia"
         );
 
-        //  2. Crear productos físicos 
-        // ProductoFisico(nombre, precioBase, pesoKg, costeEnvio)
-        ProductoFisico teclado  = new ProductoFisico("Teclado mecánico",   75.00, 1.2,  5.99);
-        ProductoFisico monitor  = new ProductoFisico("Monitor 27\"",      350.00, 6.5, 15.00);
-        ProductoFisico telefono = new ProductoFisico("Teléfono Samsung",  599.00, 0.2,  0.00);
+        // 3. Crear productos con IVA (ProductoDigital Parte 4)
+        ProductoDigital software   = new ProductoDigital("Adobe Photoshop", 100.0, 2048.0, "GENERAL");
+        ProductoDigital ebook      = new ProductoDigital("Clean Code (ebook)", 20.0, 5.0, "SUPER");
+        ProductoFisico  teclado    = new ProductoFisico("Teclado mecánico", 75.0, 1.2, "España");
+        ProductoFisico  auriculares = new ProductoFisico("Auriculares BT", 50.0, 0.3, "Francia");
 
-        //  3. Crear productos digitales 
-        // ProductoDigital(nombre, precioBase, tamañoMB)
-        ProductoDigital software  = new ProductoDigital("Adobe Photoshop",  29.99, 2048.0);
-        ProductoDigital licencia  = new ProductoDigital("Windows 11 Home",  119.00,  512.0);
-        ProductoDigital ebook     = new ProductoDigital("Clean Code (ebook)", 14.99,   5.2);
-        
-     
-
-        //  4. Mostrar precios individuales 
+        // 4. Mostrar precios individuales
         System.out.println("=== PRECIOS DE PRODUCTOS ===");
-        System.out.printf("%-30s base: %7.2f €  →  final: %7.2f €%n",
-                teclado.getNombre(),  teclado.getPrecio(),  teclado.calcularPrecioFinal());
-        System.out.printf("%-30s base: %7.2f €  →  final: %7.2f €%n",
-                monitor.getNombre(),  monitor.getPrecio(),  monitor.calcularPrecioFinal());
         System.out.printf("%-30s base: %7.2f €  →  final: %7.2f €%n",
                 software.getNombre(), software.getPrecio(), software.calcularPrecioFinal());
         System.out.printf("%-30s base: %7.2f €  →  final: %7.2f €%n",
-                licencia.getNombre(), licencia.getPrecio(), licencia.calcularPrecioFinal());
+                ebook.getNombre(), ebook.getPrecio(), ebook.calcularPrecioFinal());
         System.out.printf("%-30s base: %7.2f €  →  final: %7.2f €%n",
-                ebook.getNombre(),    ebook.getPrecio(),    ebook.calcularPrecioFinal());
+                teclado.getNombre(), teclado.getPrecio(), teclado.calcularPrecioFinal());
+        System.out.printf("%-30s base: %7.2f €  →  final: %7.2f €%n",
+                auriculares.getNombre(), auriculares.getPrecio(), auriculares.calcularPrecioFinal());
         System.out.println();
 
-        //  5. Crear pedido mixto para cliente1 
-        Pedido pedido1 = new Pedido(cliente1);
-        pedido1.agregarProducto(teclado);
-        pedido1.agregarProducto(monitor);
-        pedido1.agregarProducto(software);
-        pedido1.agregarProducto(ebook);
+        // 5. Pedido cliente VIP
+      
 
-        //  6. Crear pedido solo digital para cliente2 
-        Pedido pedido2 = new Pedido(cliente2);
-        pedido2.agregarProducto(licencia);
+      
+
+        // 6. Pedido cliente normal
+        System.out.println("=== PEDIDO CLIENTE NORMAL (2 años, sin VIP = 2% descuento) ===");
+        Pedido pedido2 = new Pedido(clienteNormal);
+        pedido2.agregarProducto(auriculares);
         pedido2.agregarProducto(ebook);
-        pedido2.agregarProducto(software);
-
-        //  7. Mostrar resúmenes 
-        System.out.println();
-        pedido1.resumenPedido();
-
-        System.out.println();
         pedido2.resumenPedido();
 
-        //  8. Demostración de excepción: pedido sin productos 
+        Factura factura2 = tienda.realizarVenta(clienteNormal, pedido2);
+        factura2.imprimirFactura();
         System.out.println();
-        System.out.println("=== DEMO EXCEPCIÓN: pedido sin productos ===");
+
+        // 7. Demostración de excepciones
+        System.out.println("=== DEMO EXCEPCIONES ===");
+
         try {
-            Pedido pedidoVacio = new Pedido(cliente1);
-            pedidoVacio.calcularTotal(); // debe lanzar IllegalStateException
+            Pedido pedidoVacio = new Pedido(clienteVip);
+            tienda.realizarVenta(clienteVip, pedidoVacio);
         } catch (IllegalStateException e) {
-            System.out.println("Excepción capturada correctamente: " + e.getMessage());
+            System.out.println("✓ Pedido vacío: " + e.getMessage());
         }
 
-        // ── 9. Demostración de excepción: precio negativo ─────────────────
-        System.out.println();
-        System.out.println("=== DEMO EXCEPCIÓN: precio negativo ===");
         try {
-            ProductoDigital invalido = new ProductoDigital("Producto inválido", -10.0, 1.0);
+            new ProductoDigital("Inválido", -10.0, 1.0);
         } catch (IllegalArgumentException e) {
-            System.out.println("Excepción capturada correctamente: " + e.getMessage());
+            System.out.println("✓ Precio negativo: " + e.getMessage());
+        }
+
+        try {
+            new ProductoDigital("Inválido", 10.0, 1.0, "INVALIDO");
+        } catch (IllegalArgumentException e) {
+            System.out.println("✓ IVA inválido: " + e.getMessage());
         }
     }
 }
