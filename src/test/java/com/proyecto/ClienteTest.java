@@ -22,4 +22,11 @@ class ClienteTest {
         Cliente c = new Cliente("Ana", "ana@mail.com", "Calle 1");
         assertNotNull(c.toString());
     }
+
+    @Test
+    @DisplayName("TC-CLI-03: Años de antigüedad negativos lanza IllegalArgumentException")
+    void testAnosNegativosLanzaExcepcion() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new Cliente(99, "Luis", "luis@mail.com", "Calle 2", -1, false, "España"));
+    }
 }

@@ -43,6 +43,34 @@ class ProductoFisicoTest {
         assertFalse(producto.calcularPrecioFinal() < producto.getPrecio());
     }
     @Test
+    @DisplayName("TC-PF-06: Envío España = 0€ con constructor por país")
+    void testEnvioEspana() {
+        ProductoFisico producto = new ProductoFisico("Camiseta", 50.0, 0.5, "España");
+        assertEquals(50.0, producto.calcularPrecioFinal(), 0.001);
+    }
+
+    @Test
+    @DisplayName("TC-PF-07: Envío Francia = 5€ con constructor por país")
+    void testEnvioFrancia() {
+        ProductoFisico producto = new ProductoFisico("Monitor", 100.0, 2.0, "Francia");
+        assertEquals(105.0, producto.calcularPrecioFinal(), 0.001);
+    }
+
+    @Test
+    @DisplayName("TC-PF-09: Envío resto del mundo = 10€ con constructor por país")
+    void testEnvioRestoMundo() {
+        ProductoFisico producto = new ProductoFisico("Cámara", 200.0, 1.5, "Japón");
+        assertEquals(210.0, producto.calcularPrecioFinal(), 0.001);
+    }
+
+    @Test
+    @DisplayName("TC-PF-10: Peso negativo lanza IllegalArgumentException")
+    void testPesoNegativoLanzaExcepcion() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new ProductoFisico("Roto", 30.0, -1.0, 3.0));
+    }
+
+    @Test
 @DisplayName("Setters de ProductoFisico funcionan")
 void testSetters() {
     ProductoFisico p = new ProductoFisico("Teclado", 50.0, 1.0, 5.0);

@@ -1,6 +1,6 @@
 com\proyecto\Cliente.class
 com\proyecto\Producto.class
-com\proyecto\Pedido.class
 com\proyecto\Main.class
+com\proyecto\Pedido.class
 com\proyecto\ProductoDigital.class
 com\proyecto\ProductoFisico.class

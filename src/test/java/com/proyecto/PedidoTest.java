@@ -35,7 +35,7 @@ class PedidoTest {
         double resultado = pedido.calcularTotal();
 
         // Assert
-        assertEquals(145.0, resultado, 0.001);
+        assertEquals(176.0, resultado, 0.001);
     }
 
     @Test

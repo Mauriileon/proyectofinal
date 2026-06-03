@@ -59,6 +59,20 @@ class ProductoDigitalTest {
     }
 
     @Test
+    @DisplayName("TC-PD-02: IVA REDUCIDO (10%) aplicado correctamente")
+    void testIvaReducido() {
+        ProductoDigital producto = new ProductoDigital("Software", 100.0, 1.0, "REDUCIDO");
+        assertEquals(110.0, producto.calcularPrecioFinal(), 0.001);
+    }
+
+    @Test
+    @DisplayName("TC-PD-07: IVA SUPER (4%) aplicado correctamente")
+    void testIvaSuper() {
+        ProductoDigital producto = new ProductoDigital("Ebook", 100.0, 1.0, "SUPER");
+        assertEquals(104.0, producto.calcularPrecioFinal(), 0.001);
+    }
+
+    @Test
     @DisplayName("TC-PD-10: Tipo IVA inválido lanza IllegalArgumentException")
     void testIvaInvalidoLanzaExcepcion() {
         assertThrows(IllegalArgumentException.class,

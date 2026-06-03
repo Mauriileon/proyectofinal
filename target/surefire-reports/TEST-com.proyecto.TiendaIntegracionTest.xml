@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.proyecto.ProductoFisicoTest" time="0.01" tests="10" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.proyecto.TiendaIntegracionTest" time="0.06" tests="17" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -59,14 +59,38 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="testPrecioFinalNuncaMenorQueBase" classname="com.proyecto.ProductoFisicoTest" time="0.001"/>
-  <testcase name="testEnvioEspana" classname="com.proyecto.ProductoFisicoTest" time="0.0"/>
-  <testcase name="testEnvioFrancia" classname="com.proyecto.ProductoFisicoTest" time="0.0"/>
-  <testcase name="testCosteEnvioSumado" classname="com.proyecto.ProductoFisicoTest" time="0.0"/>
-  <testcase name="testPesoNegativoLanzaExcepcion" classname="com.proyecto.ProductoFisicoTest" time="0.0"/>
-  <testcase name="testEnvioRestoMundo" classname="com.proyecto.ProductoFisicoTest" time="0.0"/>
-  <testcase name="testSinCosteEnvio" classname="com.proyecto.ProductoFisicoTest" time="0.0"/>
-  <testcase name="testSetters" classname="com.proyecto.ProductoFisicoTest" time="0.001"/>
-  <testcase name="testPrecioNegativoLanzaExcepcion" classname="com.proyecto.ProductoFisicoTest" time="0.001"/>
-  <testcase name="testCosteEnvioNegativoLanzaExcepcion" classname="com.proyecto.ProductoFisicoTest" time="0.001"/>
+  <testcase name="testCodigosFacturaUnicos" classname="com.proyecto.TiendaIntegracionTest" time="0.029"/>
+  <testcase name="testRegresionPedidoVacio" classname="com.proyecto.TiendaIntegracionTest" time="0.001"/>
+  <testcase name="testTiendaNombreVacio" classname="com.proyecto.TiendaIntegracionTest" time="0.001"/>
+  <testcase name="testFechaEmisionNoNula" classname="com.proyecto.TiendaIntegracionTest" time="0.001"/>
+  <testcase name="testFlujoEndToEnd" classname="com.proyecto.TiendaIntegracionTest" time="0.004">
+    <system-out><![CDATA[┌─────────────────────────────────────────────────┐
+│                    FACTURA                      │
+├─────────────────────────────────────────────────┤
+│  Código  : FAC-EF399AA6                          │
+│  Fecha   : 03/06/2026                            │
+│  Cliente : Carlos Ruiz                           │
+│  Pedido  : #16                                   │
+├─────────────────────────────────────────────────┤
+│  Base neta          :                    331,66 €│
+│  IVA                :                     -0,00 €│
+│  Gastos de envío    :                      0,00 €│
+│  Descuento fidelidad:                     28,84 €│
+├─────────────────────────────────────────────────┤
+│  TOTAL FINAL        :                    331,66 €│
+└─────────────────────────────────────────────────┘
+]]></system-out>
+  </testcase>
+  <testcase name="testRealizarVentaDevuelveFactura" classname="com.proyecto.TiendaIntegracionTest" time="0.001"/>
+  <testcase name="testEnvioDesglosadoEnFactura" classname="com.proyecto.TiendaIntegracionTest" time="0.0"/>
+  <testcase name="testRealizarVentaClienteNulo" classname="com.proyecto.TiendaIntegracionTest" time="0.001"/>
+  <testcase name="testClienteFactura" classname="com.proyecto.TiendaIntegracionTest" time="0.001"/>
+  <testcase name="testFacturaPedidoMixtoConDescuento" classname="com.proyecto.TiendaIntegracionTest" time="0.001"/>
+  <testcase name="testCodigoFacturaAutomatico" classname="com.proyecto.TiendaIntegracionTest" time="0.001"/>
+  <testcase name="testRegresionCalcularTotal" classname="com.proyecto.TiendaIntegracionTest" time="0.0"/>
+  <testcase name="testDescuentoVipAplicado" classname="com.proyecto.TiendaIntegracionTest" time="0.001"/>
+  <testcase name="testRealizarVentaPedidoNulo" classname="com.proyecto.TiendaIntegracionTest" time="0.001"/>
+  <testcase name="testTotalFacturaSinDescuento" classname="com.proyecto.TiendaIntegracionTest" time="0.002"/>
+  <testcase name="testRealizarVentaPedidoVacio" classname="com.proyecto.TiendaIntegracionTest" time="0.001"/>
+  <testcase name="testRegresionPrecioNegativo" classname="com.proyecto.TiendaIntegracionTest" time="0.001"/>
 </testsuite>
