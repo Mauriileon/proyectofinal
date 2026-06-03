@@ -50,6 +50,11 @@ public class Tienda {
     
     private double calcularTotalEnvio(Pedido pedido) {
         double totalEnvio = 0.0;
+        for (Producto p : pedido.getProductos()) {
+            if (p instanceof ProductoFisico pFisico) {
+                totalEnvio += pFisico.getCosteEnvio();
+            }
+        }
         return totalEnvio;
     }
 

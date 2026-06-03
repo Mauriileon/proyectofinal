@@ -40,9 +40,16 @@ public class Main {
         System.out.println();
 
         // 5. Pedido cliente VIP
-      
+        System.out.println("=== PEDIDO CLIENTE VIP (5 años + VIP = 10% descuento) ===");
+        Pedido pedido1 = new Pedido(clienteVip);
+        pedido1.agregarProducto(software);
+        pedido1.agregarProducto(teclado);
+        pedido1.agregarProducto(ebook);
+        pedido1.resumenPedido();
 
-      
+        Factura factura1 = tienda.realizarVenta(clienteVip, pedido1);
+        factura1.imprimirFactura();
+        System.out.println();
 
         // 6. Pedido cliente normal
         System.out.println("=== PEDIDO CLIENTE NORMAL (2 años, sin VIP = 2% descuento) ===");

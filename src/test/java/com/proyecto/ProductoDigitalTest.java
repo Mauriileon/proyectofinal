@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductoDigitalTest {
 
     @Test
-    @DisplayName("TC-PD-01: Precio final aplica descuento del 10%")
+    @DisplayName("TC-PD-01: Precio final aplica IVA GENERAL del 21%")
     void testDescuento10PorCiento() {
         ProductoDigital producto = new ProductoDigital("Ebook", 100.0, 5.0);
-        assertEquals(90.0, producto.calcularPrecioFinal(), 0.001);
+        assertEquals(121.0, producto.calcularPrecioFinal(), 0.001);
     }
 
     @Test
@@ -47,26 +47,43 @@ class ProductoDigitalTest {
 
     @ParameterizedTest(name = "precio={0} → esperado={1}")
     @CsvSource({
-        "10.0,   9.0",
-        "50.0,  45.0",
-        "100.0, 90.0",
-        "200.0, 180.0"
+        "10.0,   12.1",
+        "50.0,   60.5",
+        "100.0, 121.0",
+        "200.0, 242.0"
     })
-    @DisplayName("TC-PD-06: Parametrizado - descuento 10% con diferentes precios")
+    @DisplayName("TC-PD-06: Parametrizado - IVA GENERAL 21% con diferentes precios")
     void testDescuentoParametrizado(double precioBase, double precioEsperado) {
         ProductoDigital producto = new ProductoDigital("Producto", precioBase, 1.0);
         assertEquals(precioEsperado, producto.calcularPrecioFinal(), 0.001);
     }
 
     @Test
-@DisplayName("Setters de ProductoDigital funcionan")
-void testSetters() {
-    ProductoDigital p = new ProductoDigital("App", 50.0, 10.0);
-    p.setNombre("Nuevo");
-    p.setPrecio(80.0);
-    p.setTamañoMB(200.0);
-    assertEquals("Nuevo", p.getNombre());
-    assertEquals(80.0, p.getPrecio(), 0.001);
-    assertEquals(200.0, p.getTamañoMB(), 0.001);
-}
+    @DisplayName("TC-PD-10: Tipo IVA inválido lanza IllegalArgumentException")
+    void testIvaInvalidoLanzaExcepcion() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new ProductoDigital("App", 50.0, 1.0, "INVALIDO"),
+                "Tipo de IVA desconocido debe lanzar excepción");
+    }
+
+    @Test
+    @DisplayName("TC-PD-11: IVA nulo lanza IllegalArgumentException")
+    void testIvaNuloLanzaExcepcion() {
+        ProductoDigital producto = new ProductoDigital("App", 50.0, 1.0);
+        assertThrows(IllegalArgumentException.class,
+                () -> producto.aplicarIVA(null),
+                "IVA nulo debe lanzar excepción");
+    }
+
+    @Test
+    @DisplayName("Setters de ProductoDigital funcionan")
+    void testSetters() {
+        ProductoDigital p = new ProductoDigital("App", 50.0, 10.0);
+        p.setNombre("Nuevo");
+        p.setPrecio(80.0);
+        p.setTamañoMB(200.0);
+        assertEquals("Nuevo", p.getNombre());
+        assertEquals(80.0, p.getPrecio(), 0.001);
+        assertEquals(200.0, p.getTamañoMB(), 0.001);
+    }
 }
