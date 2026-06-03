@@ -2,51 +2,38 @@
 
 public abstract class Producto {
 
+    protected int    id;
     protected String nombre;
     protected double precio;
 
-<span class="fc" id="L8">    public Producto(String nombre, double precio) {</span>
-<span class="fc bfc" id="L9" title="All 2 branches covered.">        if (precio &lt; 0) {</span>
-<span class="fc" id="L10">            throw new IllegalArgumentException(&quot;El precio no puede ser negativo.&quot;);</span>
+<span class="fc" id="L9">    public Producto(String nombre, double precio) {</span>
+<span class="fc bfc" id="L10" title="All 2 branches covered.">        if (precio &lt; 0) {</span>
+<span class="fc" id="L11">            throw new IllegalArgumentException(&quot;El precio no puede ser negativo.&quot;);</span>
         }
-<span class="fc" id="L12">        this.nombre = nombre;</span>
-<span class="fc" id="L13">        this.precio = precio;</span>
-<span class="fc" id="L14">    }</span>
+<span class="fc" id="L13">        this.nombre = nombre;</span>
+<span class="fc" id="L14">        this.precio = precio;</span>
+<span class="fc" id="L15">    }</span>
 
-    public String getNombre() {
-<span class="fc" id="L17">        return nombre;</span>
-    }
+    abstract double calcularPrecioFinal();
 
-    public void setNombre(String nombre) {
-<span class="fc" id="L21">        this.nombre = nombre;</span>
-<span class="fc" id="L22">    }</span>
+<span class="nc" id="L19">    public int getId() { return id; }</span>
 
-    public double getPrecio() {
-<span class="fc" id="L25">        return precio;</span>
-    }
+<span class="fc" id="L21">    public String getNombre() { return nombre; }</span>
+
+<span class="fc" id="L23">    public void setNombre(String nombre) { this.nombre = nombre; }</span>
+
+<span class="fc" id="L25">    public double getPrecio() { return precio; }</span>
 
     public void setPrecio(double precio) {
-<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        if (precio &lt; 0) {</span>
-<span class="nc" id="L30">            throw new IllegalArgumentException(&quot;El precio no puede ser negativo.&quot;);</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">        if (precio &lt; 0) {</span>
+<span class="nc" id="L29">            throw new IllegalArgumentException(&quot;El precio no puede ser negativo.&quot;);</span>
         }
-<span class="fc" id="L32">        this.precio = precio;</span>
-<span class="fc" id="L33">    }</span>
+<span class="fc" id="L31">        this.precio = precio;</span>
+<span class="fc" id="L32">    }</span>
 
-    // ── Método abstracto ───────────────────────────────────────────────────
-    /**
-     * Calcula el precio final del producto.
-     * Cada subclase implementa su propia lógica:
-     *   - ProductoDigital: aplica un 10% de descuento.
-     *   - ProductoFisico:  suma el coste de envío.
-     *
-     * @return precio final calculado
-     */
-    public abstract double calcularPrecioFinal();
-
-    // ── toString ───────────────────────────────────────────────────────────
     @Override
     public String toString() {
-<span class="nc" id="L49">        return &quot;Producto{nombre='&quot; + nombre + &quot;', precio=&quot; + precio + &quot;}&quot;;</span>
+<span class="nc" id="L36">        return &quot;Producto{nombre='&quot; + nombre + &quot;', precio=&quot; + precio + &quot;}&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

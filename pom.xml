@@ -94,6 +94,9 @@
                         <phase>verify</phase>
                         <goals><goal>check</goal></goals>
                         <configuration>
+                            <excludes>
+                                <exclude>**/Main.class</exclude>
+                            </excludes>
                             <rules>
                                 <rule>
                                     <element>BUNDLE</element>

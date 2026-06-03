@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Factura.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Sistema de Gestion de Pedidos</a> &gt; <a href="index.source.html" class="el_package">com.proyecto</a> &gt; <span class="el_source">Factura.java</span></div><h1>Factura.java</h1><pre class="source lang-java linenums">package com.proyecto;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
+
+
+public class Factura {
+
+    // ── Atributos ──────────────────────────────────────────────────────────
+    private final String    codigoFactura;
+    private final LocalDate fechaEmision;
+    private final Cliente   cliente;
+    private final Pedido    pedido;
+    private final double    totalNeto;
+    private final double    totalIva;
+    private final double    totalEnvio;
+    private final double    descuentoAplicado;
+    private final double    totalFinal;
+
+    
+    public Factura(Cliente cliente, Pedido pedido, LocalDate fechaEmision,
+                   double totalNeto, double totalIva, double totalEnvio,
+<span class="fc" id="L24">                   double descuentoAplicado, double totalFinal) {</span>
+<span class="fc" id="L25">        this.codigoFactura     = generarCodigo();</span>
+<span class="fc" id="L26">        this.cliente           = cliente;</span>
+<span class="fc" id="L27">        this.pedido            = pedido;</span>
+<span class="fc" id="L28">        this.fechaEmision      = fechaEmision;</span>
+<span class="fc" id="L29">        this.totalNeto         = totalNeto;</span>
+<span class="fc" id="L30">        this.totalIva          = totalIva;</span>
+<span class="fc" id="L31">        this.totalEnvio        = totalEnvio;</span>
+<span class="fc" id="L32">        this.descuentoAplicado = descuentoAplicado;</span>
+<span class="fc" id="L33">        this.totalFinal        = totalFinal;</span>
+<span class="fc" id="L34">    }</span>
+
+   
+    private String generarCodigo() {
+<span class="fc" id="L38">        return &quot;FAC-&quot; + UUID.randomUUID().toString().substring(0, 8).toUpperCase();</span>
+    }
+
+
+    public void imprimirFactura() {
+<span class="fc" id="L43">        DateTimeFormatter fmt = DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy&quot;);</span>
+<span class="fc" id="L44">        System.out.println(&quot;┌─────────────────────────────────────────────────┐&quot;);</span>
+<span class="fc" id="L45">        System.out.println(&quot;│                    FACTURA                      │&quot;);</span>
+<span class="fc" id="L46">        System.out.println(&quot;├─────────────────────────────────────────────────┤&quot;);</span>
+<span class="fc" id="L47">        System.out.printf( &quot;│  Código  : %-38s│%n&quot;, codigoFactura);</span>
+<span class="fc" id="L48">        System.out.printf( &quot;│  Fecha   : %-38s│%n&quot;, fechaEmision.format(fmt));</span>
+<span class="fc" id="L49">        System.out.printf( &quot;│  Cliente : %-38s│%n&quot;, cliente.getNombre());</span>
+<span class="fc" id="L50">        System.out.printf( &quot;│  Pedido  : #%-37d│%n&quot;, pedido.getIdPedido());</span>
+<span class="fc" id="L51">        System.out.println(&quot;├─────────────────────────────────────────────────┤&quot;);</span>
+<span class="fc" id="L52">        System.out.printf( &quot;│  Base neta          : %25.2f €│%n&quot;, totalNeto);</span>
+<span class="fc" id="L53">        System.out.printf( &quot;│  IVA                : %25.2f €│%n&quot;, totalIva);</span>
+<span class="fc" id="L54">        System.out.printf( &quot;│  Gastos de envío    : %25.2f €│%n&quot;, totalEnvio);</span>
+<span class="fc" id="L55">        System.out.printf( &quot;│  Descuento fidelidad: %25.2f €│%n&quot;, descuentoAplicado);</span>
+<span class="fc" id="L56">        System.out.println(&quot;├─────────────────────────────────────────────────┤&quot;);</span>
+<span class="fc" id="L57">        System.out.printf( &quot;│  TOTAL FINAL        : %25.2f €│%n&quot;, totalFinal);</span>
+<span class="fc" id="L58">        System.out.println(&quot;└─────────────────────────────────────────────────┘&quot;);</span>
+<span class="fc" id="L59">    }</span>
+
+<span class="fc" id="L61">    public String getCodigoFactura() { return codigoFactura; }</span>
+
+<span class="fc" id="L63">    public LocalDate getFechaEmision() { return fechaEmision; }</span>
+
+   
+<span class="fc" id="L66">    public Cliente getCliente() { return cliente; }</span>
+
+   
+<span class="nc" id="L69">    public Pedido getPedido() { return pedido; }</span>
+
+    
+<span class="nc" id="L72">    public double getTotalNeto() { return totalNeto; }</span>
+
+<span class="nc" id="L74">    public double getTotalIva() { return totalIva; }</span>
+
+  
+<span class="fc" id="L77">    public double getTotalEnvio() { return totalEnvio; }</span>
+
+<span class="fc" id="L79">    public double getDescuentoAplicado() { return descuentoAplicado; }</span>
+
+  
+
+<span class="fc" id="L83">    public double getTotalFinal() { return totalFinal; }</span>
+
+    // ── toString ───────────────────────────────────────────────────────────
+    @Override
+    public String toString() {
+<span class="nc" id="L88">        return &quot;Factura{&quot;</span>
+                + &quot;codigo='&quot; + codigoFactura + '\''
+<span class="nc" id="L90">                + &quot;, cliente='&quot; + cliente.getNombre() + '\''</span>
+<span class="nc" id="L91">                + &quot;, totalFinal=&quot; + String.format(&quot;%.2f&quot;, totalFinal)</span>
+                + '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

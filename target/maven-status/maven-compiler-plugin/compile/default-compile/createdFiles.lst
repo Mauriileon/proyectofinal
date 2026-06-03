@@ -1,6 +1,8 @@
 com\proyecto\Cliente.class
 com\proyecto\Producto.class
+com\proyecto\Factura.class
 com\proyecto\Main.class
+com\proyecto\Tienda.class
 com\proyecto\Pedido.class
 com\proyecto\ProductoDigital.class
 com\proyecto\ProductoFisico.class
