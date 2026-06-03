@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.proyecto.TiendaIntegracionTest
 -------------------------------------------------------------------------------
-Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.087 s -- in com.proyecto.TiendaIntegracionTest
+Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.052 s -- in com.proyecto.TiendaIntegracionTest

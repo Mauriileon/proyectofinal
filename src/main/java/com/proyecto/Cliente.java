@@ -1,5 +1,8 @@
 package com.proyecto;
 
+/**
+ * Representa un cliente con datos de fidelización y cálculo de descuento.
+ */
 public class Cliente {
 
     private static final double DESCUENTO_POR_ANIO = 0.01;
@@ -14,6 +17,16 @@ public class Cliente {
     private boolean esVip;
     private String pais;
 
+    /**
+     * @param id              identificador único del cliente
+     * @param nombre          nombre completo
+     * @param correo          dirección de correo electrónico
+     * @param direccion       dirección postal
+     * @param añosAntiguedad  años como cliente; debe ser >= 0
+     * @param esVip           si el cliente tiene categoría VIP
+     * @param pais            país de residencia
+     * @throws IllegalArgumentException si los años de antigüedad son negativos
+     */
     public Cliente(int id, String nombre, String correo, String direccion,
                    int añosAntiguedad, boolean esVip, String pais) {
         if (añosAntiguedad < 0) {
@@ -28,10 +41,20 @@ public class Cliente {
         this.pais           = pais;
     }
 
+    /**
+     * Constructor simplificado sin fidelización (0 años, no VIP, país España).
+     * @param nombre    nombre completo
+     * @param correo    correo electrónico
+     * @param direccion dirección postal
+     */
     public Cliente(String nombre, String correo, String direccion) {
         this(0, nombre, correo, direccion, 0, false, "España");
     }
 
+    /**
+     * Calcula el descuento de fidelidad: 1% por año + 5% si es VIP, máximo 20%.
+     * @return porcentaje de descuento como valor entre 0.0 y 0.20
+     */
     public double calcularDescuentoFidelidad() {
         double descuento = añosAntiguedad * DESCUENTO_POR_ANIO;
         if (esVip) {

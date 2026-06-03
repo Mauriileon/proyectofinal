@@ -7,9 +7,14 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests unitarios y parametrizados de {@link ProductoDigital}.
+ * Cubre aplicación de IVA, validaciones de precio y tipos de IVA.
+ */
 @DisplayName("Tests de ProductoDigital")
 class ProductoDigitalTest {
 
+    /** Verifica que IVA GENERAL del 21% se aplica correctamente sobre precio 100. */
     @Test
     @DisplayName("TC-PD-01: Precio final aplica IVA GENERAL del 21%")
     void testDescuento10PorCiento() {
@@ -17,6 +22,7 @@ class ProductoDigitalTest {
         assertEquals(121.0, producto.calcularPrecioFinal(), 0.001);
     }
 
+    /** Verifica que precio base 0 produce precio final 0 con cualquier tipo de IVA. */
     @Test
     @DisplayName("TC-PD-02: Precio base 0 produce precio final 0")
     void testPrecioCero() {
@@ -24,6 +30,7 @@ class ProductoDigitalTest {
         assertEquals(0.0, producto.calcularPrecioFinal(), 0.001);
     }
 
+    /** Verifica que un precio negativo lanza {@link IllegalArgumentException}. */
     @Test
     @DisplayName("TC-PD-03: Precio negativo lanza IllegalArgumentException")
     void testPrecioNegativoLanzaExcepcion() {
@@ -31,6 +38,7 @@ class ProductoDigitalTest {
                 () -> new ProductoDigital("Inválido", -10.0, 5.0));
     }
 
+    /** Verifica que el precio final con IVA es distinto al precio base. */
     @Test
     @DisplayName("TC-PD-04: El precio final no es igual al precio base")
     void testPrecioFinalNoIgualAlBase() {
@@ -38,6 +46,7 @@ class ProductoDigitalTest {
         assertNotEquals(60.0, producto.calcularPrecioFinal());
     }
 
+    /** Verifica mediante {@code assertFalse} que el precio final supera al precio base. */
     @Test
     @DisplayName("TC-PD-05: AssertFalse - precio final no es el precio base")
     void testPrecioFinalNoesPrecioBase() {
@@ -45,6 +54,11 @@ class ProductoDigitalTest {
         assertFalse(producto.calcularPrecioFinal() == 100.0);
     }
 
+    /**
+     * Verifica IVA GENERAL del 21% con cuatro precios distintos.
+     * @param precioBase    precio base de entrada
+     * @param precioEsperado precio final esperado tras aplicar el 21%
+     */
     @ParameterizedTest(name = "precio={0} → esperado={1}")
     @CsvSource({
         "10.0,   12.1",
@@ -58,6 +72,7 @@ class ProductoDigitalTest {
         assertEquals(precioEsperado, producto.calcularPrecioFinal(), 0.001);
     }
 
+    /** Verifica que IVA REDUCIDO del 10% se aplica correctamente sobre precio 100. */
     @Test
     @DisplayName("TC-PD-02: IVA REDUCIDO (10%) aplicado correctamente")
     void testIvaReducido() {
@@ -65,6 +80,7 @@ class ProductoDigitalTest {
         assertEquals(110.0, producto.calcularPrecioFinal(), 0.001);
     }
 
+    /** Verifica que IVA SUPER del 4% se aplica correctamente sobre precio 100. */
     @Test
     @DisplayName("TC-PD-07: IVA SUPER (4%) aplicado correctamente")
     void testIvaSuper() {
@@ -72,6 +88,7 @@ class ProductoDigitalTest {
         assertEquals(104.0, producto.calcularPrecioFinal(), 0.001);
     }
 
+    /** Verifica que un tipo de IVA inválido lanza {@link IllegalArgumentException}. */
     @Test
     @DisplayName("TC-PD-10: Tipo IVA inválido lanza IllegalArgumentException")
     void testIvaInvalidoLanzaExcepcion() {
@@ -80,6 +97,7 @@ class ProductoDigitalTest {
                 "Tipo de IVA desconocido debe lanzar excepción");
     }
 
+    /** Verifica que pasar {@code null} como tipo de IVA lanza {@link IllegalArgumentException}. */
     @Test
     @DisplayName("TC-PD-11: IVA nulo lanza IllegalArgumentException")
     void testIvaNuloLanzaExcepcion() {
@@ -89,6 +107,7 @@ class ProductoDigitalTest {
                 "IVA nulo debe lanzar excepción");
     }
 
+    /** Verifica que los setters de {@link ProductoDigital} actualizan los valores correctamente. */
     @Test
     @DisplayName("Setters de ProductoDigital funcionan")
     void testSetters() {

@@ -4,9 +4,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests unitarios de {@link Cliente}.
+ * Verifica construcción, representación y validaciones básicas.
+ */
 @DisplayName("Tests de Cliente")
 class ClienteTest {
 
+    /** Verifica que el constructor simplificado asigna correctamente nombre, correo y dirección. */
     @Test
     @DisplayName("Constructor asigna todos los campos")
     void testConstructor() {
@@ -16,6 +21,7 @@ class ClienteTest {
         assertEquals("Calle 1", c.getDireccion());
     }
 
+    /** Verifica que {@code toString()} devuelve una cadena no nula. */
     @Test
     @DisplayName("toString no es nulo")
     void testToString() {
@@ -23,6 +29,7 @@ class ClienteTest {
         assertNotNull(c.toString());
     }
 
+    /** Verifica que años de antigüedad negativos lanzan {@link IllegalArgumentException}. */
     @Test
     @DisplayName("TC-CLI-03: Años de antigüedad negativos lanza IllegalArgumentException")
     void testAnosNegativosLanzaExcepcion() {

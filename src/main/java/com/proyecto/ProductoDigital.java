@@ -1,5 +1,8 @@
 package com.proyecto;
 
+/**
+ * Producto descargable con aplicación de IVA según su tipo (GENERAL, REDUCIDO o SUPER).
+ */
 public class ProductoDigital extends Producto {
 
     private static final double IVA_GENERAL  = 0.21;
@@ -9,21 +12,44 @@ public class ProductoDigital extends Producto {
     private double tamañoMB;
     private String tipoIva;
 
+    /**
+     * @param nombre    nombre del producto
+     * @param precio    precio base
+     * @param tamañoMB  tamaño del archivo en megabytes
+     * @param tipoIva   tipo de IVA: GENERAL, REDUCIDO o SUPER
+     * @throws IllegalArgumentException si el tipo de IVA es inválido o nulo
+     */
     public ProductoDigital(String nombre, double precio, double tamañoMB, String tipoIva) {
         super(nombre, precio);
         this.tamañoMB = tamañoMB;
         this.tipoIva  = validarTipoIva(tipoIva);
     }
 
+    /**
+     * Constructor con IVA GENERAL por defecto.
+     * @param nombre   nombre del producto
+     * @param precio   precio base
+     * @param tamañoMB tamaño del archivo en megabytes
+     */
     public ProductoDigital(String nombre, double precio, double tamañoMB) {
         this(nombre, precio, tamañoMB, "GENERAL");
     }
 
+    /**
+     * Calcula el precio aplicando el tipo de IVA indicado.
+     * @param tipoIva tipo de IVA a aplicar (GENERAL, REDUCIDO o SUPER)
+     * @return precio con IVA incluido
+     * @throws IllegalArgumentException si el tipo de IVA es inválido o nulo
+     */
     public double aplicarIVA(String tipoIva) {
         double tasaIva = obtenerTasa(validarTipoIva(tipoIva));
         return precio + (precio * tasaIva);
     }
 
+    /**
+     * Devuelve el precio base con el IVA del constructor aplicado.
+     * @return precio final con IVA
+     */
     @Override
     public double calcularPrecioFinal() {
         return aplicarIVA(this.tipoIva);

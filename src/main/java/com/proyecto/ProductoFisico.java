@@ -1,5 +1,8 @@
 package com.proyecto;
 
+/**
+ * Producto físico con coste de envío determinado por zona geográfica.
+ */
 public class ProductoFisico extends Producto {
 
     private static final double ENVIO_ESPANIA = 0.0;
@@ -9,6 +12,14 @@ public class ProductoFisico extends Producto {
     private double peso;
     private double costeEnvio;
 
+    /**
+     * Constructor que calcula el coste de envío según el país de destino.
+     * @param nombre       nombre del producto
+     * @param precio       precio base
+     * @param peso         peso en kg; debe ser >= 0
+     * @param paisDestino  país de destino para calcular el envío
+     * @throws IllegalArgumentException si el peso es negativo
+     */
     public ProductoFisico(String nombre, double precio, double peso, String paisDestino) {
         super(nombre, precio);
         if (peso < 0) {
@@ -18,6 +29,14 @@ public class ProductoFisico extends Producto {
         this.costeEnvio = calcularCosteEnvio(paisDestino);
     }
 
+    /**
+     * Constructor con coste de envío explícito.
+     * @param nombre     nombre del producto
+     * @param precio     precio base
+     * @param peso       peso en kg; debe ser >= 0
+     * @param costeEnvio coste de envío; debe ser >= 0
+     * @throws IllegalArgumentException si el peso o coste de envío son negativos
+     */
     public ProductoFisico(String nombre, double precio, double peso, double costeEnvio) {
         super(nombre, precio);
         if (peso < 0) {
@@ -30,6 +49,11 @@ public class ProductoFisico extends Producto {
         this.costeEnvio = costeEnvio;
     }
 
+    /**
+     * Determina el coste de envío según el país: España=0€, Europa=5€, resto=10€.
+     * @param pais país de destino
+     * @return coste de envío en euros
+     */
     public static double calcularCosteEnvio(String pais) {
         if (pais == null) {
             return ENVIO_RESTO;
@@ -50,17 +74,27 @@ public class ProductoFisico extends Producto {
         }
     }
 
+    /**
+     * @return precio base más coste de envío
+     */
     @Override
     public double calcularPrecioFinal() {
         return precio + costeEnvio;
     }
 
+    /** @return peso del producto en kg */
     public double getPeso() { return peso; }
 
+    /** @param peso nuevo peso en kg */
     public void setPeso(double peso) { this.peso = peso; }
 
+    /** @return coste de envío en euros */
     public double getCosteEnvio() { return costeEnvio; }
 
+    /**
+     * @param costeEnvio nuevo coste de envío; debe ser >= 0
+     * @throws IllegalArgumentException si el coste es negativo
+     */
     public void setCosteEnvio(double costeEnvio) {
         if (costeEnvio < 0) {
             throw new IllegalArgumentException("El coste de envío no puede ser negativo.");

@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Representa un pedido de un cliente con su lista de productos y cantidades.
+ */
 public class Pedido {
 
     private static final AtomicInteger CONTADOR = new AtomicInteger(1);
@@ -18,6 +21,11 @@ public class Pedido {
     private Producto producto;
     private int      cantidad;
 
+    /**
+     * Crea un pedido vacío para el cliente indicado.
+     * @param cliente cliente asociado al pedido
+     * @throws IllegalArgumentException si el cliente es nulo
+     */
     public Pedido(Cliente cliente) {
         if (cliente == null) {
             throw new IllegalArgumentException("El cliente no puede ser nulo.");
@@ -29,6 +37,12 @@ public class Pedido {
         this.cantidad   = 0;
     }
 
+    /**
+     * Crea un pedido con un producto inicial.
+     * @param cliente  cliente asociado
+     * @param producto producto inicial (ignorado si es nulo)
+     * @param cantidad cantidad del producto inicial
+     */
     public Pedido(Cliente cliente, Producto producto, int cantidad) {
         this(cliente);
         if (producto != null) {
@@ -39,10 +53,21 @@ public class Pedido {
         }
     }
 
+    /**
+     * Añade una unidad del producto al pedido.
+     * @param p producto a añadir
+     * @throws IllegalArgumentException si el producto es nulo
+     */
     public void agregarProducto(Producto p) {
         agregarProducto(p, 1);
     }
 
+    /**
+     * Añade varias unidades del producto al pedido.
+     * @param p        producto a añadir
+     * @param cantidad número de unidades; debe ser >= 1
+     * @throws IllegalArgumentException si el producto es nulo o la cantidad < 1
+     */
     public void agregarProducto(Producto p, int cantidad) {
         if (p == null) {
             throw new IllegalArgumentException("El producto no puede ser nulo.");
@@ -56,6 +81,10 @@ public class Pedido {
         cantidades.merge(p, cantidad, Integer::sum);
     }
 
+    /**
+     * Elimina una unidad del producto del pedido.
+     * @param p producto a eliminar
+     */
     public void eliminarProducto(Producto p) {
         productos.remove(p);
         if (cantidades.containsKey(p)) {
@@ -68,6 +97,11 @@ public class Pedido {
         }
     }
 
+    /**
+     * Suma los precios finales de todos los productos del pedido.
+     * @return total del pedido
+     * @throws IllegalStateException si el pedido está vacío
+     */
     public double calcularTotal() {
         if (productos.isEmpty()) {
             throw new IllegalStateException(
@@ -80,6 +114,7 @@ public class Pedido {
         return total;
     }
 
+    /** Imprime por consola un resumen formateado del pedido. */
     public void resumenPedido() {
         System.out.println("╔══════════════════════════════════════════╗");
         System.out.println("║         RESUMEN DEL PEDIDO               ║");

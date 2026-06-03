@@ -5,9 +5,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 
+/**
+ * Documento de venta generado por {@link Tienda} con código único y desglose de importes.
+ */
 public class Factura {
 
-    // ── Atributos ──────────────────────────────────────────────────────────
     private final String    codigoFactura;
     private final LocalDate fechaEmision;
     private final Cliente   cliente;
@@ -18,7 +20,17 @@ public class Factura {
     private final double    descuentoAplicado;
     private final double    totalFinal;
 
-    
+    /**
+     * Crea una factura y genera automáticamente su código único con prefijo FAC-.
+     * @param cliente           cliente de la venta
+     * @param pedido            pedido asociado
+     * @param fechaEmision      fecha de emisión
+     * @param totalNeto         base neta tras descuento y envío
+     * @param totalIva          importe de IVA
+     * @param totalEnvio        gastos de envío totales
+     * @param descuentoAplicado importe de descuento por fidelidad
+     * @param totalFinal        importe total a pagar
+     */
     public Factura(Cliente cliente, Pedido pedido, LocalDate fechaEmision,
                    double totalNeto, double totalIva, double totalEnvio,
                    double descuentoAplicado, double totalFinal) {
@@ -33,12 +45,11 @@ public class Factura {
         this.totalFinal        = totalFinal;
     }
 
-   
     private String generarCodigo() {
         return "FAC-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
 
-
+    /** Imprime por consola la factura formateada con todos los importes. */
     public void imprimirFactura() {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         System.out.println("┌─────────────────────────────────────────────────┐");
@@ -58,31 +69,34 @@ public class Factura {
         System.out.println("└─────────────────────────────────────────────────┘");
     }
 
+    /** @return código único de la factura con prefijo FAC- */
     public String getCodigoFactura() { return codigoFactura; }
 
+    /** @return fecha de emisión de la factura */
     public LocalDate getFechaEmision() { return fechaEmision; }
 
-   
+    /** @return cliente asociado a la factura */
     public Cliente getCliente() { return cliente; }
 
-   
+    /** @return pedido asociado a la factura */
     public Pedido getPedido() { return pedido; }
 
-    
+    /** @return base neta tras aplicar descuento y descontar envío */
     public double getTotalNeto() { return totalNeto; }
 
+    /** @return importe de IVA */
     public double getTotalIva() { return totalIva; }
 
-  
+    /** @return gastos de envío totales */
     public double getTotalEnvio() { return totalEnvio; }
 
+    /** @return importe de descuento por fidelidad aplicado */
     public double getDescuentoAplicado() { return descuentoAplicado; }
 
-  
-
+    /** @return importe total final a pagar */
     public double getTotalFinal() { return totalFinal; }
 
-    // ── toString ───────────────────────────────────────────────────────────
+
     @Override
     public String toString() {
         return "Factura{"
