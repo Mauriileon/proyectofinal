@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Sistema de Gestion de Pedidos</a> &gt; <a href="index.source.html" class="el_package">com.proyecto</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package com.proyecto;
+
+
+
+<span class="nc" id="L5">public class Main {</span>
+
+    public static void main(String[] args) {
+
+        //  1. Crear clientes 
+<span class="nc" id="L10">        Cliente cliente1 = new Cliente(</span>
+                &quot;Mauricio León&quot;,
+                &quot;mauricio@email.com&quot;,
+                &quot;Calle Mayor 10, Madrid&quot;
+        );
+
+<span class="nc" id="L16">        Cliente cliente2 = new Cliente(</span>
+                &quot;Ana García&quot;,
+                &quot;ana.garcia@email.com&quot;,
+                &quot;Av. Diagonal 45, Barcelona&quot;
+        );
+
+        //  2. Crear productos físicos 
+        // ProductoFisico(nombre, precioBase, pesoKg, costeEnvio)
+<span class="nc" id="L24">        ProductoFisico teclado  = new ProductoFisico(&quot;Teclado mecánico&quot;,   75.00, 1.2,  5.99);</span>
+<span class="nc" id="L25">        ProductoFisico monitor  = new ProductoFisico(&quot;Monitor 27\&quot;&quot;,      350.00, 6.5, 15.00);</span>
+<span class="nc" id="L26">        ProductoFisico telefono = new ProductoFisico(&quot;Teléfono Samsung&quot;,  599.00, 0.2,  0.00);</span>
+
+        //  3. Crear productos digitales 
+        // ProductoDigital(nombre, precioBase, tamañoMB)
+<span class="nc" id="L30">        ProductoDigital software  = new ProductoDigital(&quot;Adobe Photoshop&quot;,  29.99, 2048.0);</span>
+<span class="nc" id="L31">        ProductoDigital licencia  = new ProductoDigital(&quot;Windows 11 Home&quot;,  119.00,  512.0);</span>
+<span class="nc" id="L32">        ProductoDigital ebook     = new ProductoDigital(&quot;Clean Code (ebook)&quot;, 14.99,   5.2);</span>
+        
+     
+
+        //  4. Mostrar precios individuales 
+<span class="nc" id="L37">        System.out.println(&quot;=== PRECIOS DE PRODUCTOS ===&quot;);</span>
+<span class="nc" id="L38">        System.out.printf(&quot;%-30s base: %7.2f €  →  final: %7.2f €%n&quot;,</span>
+<span class="nc" id="L39">                teclado.getNombre(),  teclado.getPrecio(),  teclado.calcularPrecioFinal());</span>
+<span class="nc" id="L40">        System.out.printf(&quot;%-30s base: %7.2f €  →  final: %7.2f €%n&quot;,</span>
+<span class="nc" id="L41">                monitor.getNombre(),  monitor.getPrecio(),  monitor.calcularPrecioFinal());</span>
+<span class="nc" id="L42">        System.out.printf(&quot;%-30s base: %7.2f €  →  final: %7.2f €%n&quot;,</span>
+<span class="nc" id="L43">                software.getNombre(), software.getPrecio(), software.calcularPrecioFinal());</span>
+<span class="nc" id="L44">        System.out.printf(&quot;%-30s base: %7.2f €  →  final: %7.2f €%n&quot;,</span>
+<span class="nc" id="L45">                licencia.getNombre(), licencia.getPrecio(), licencia.calcularPrecioFinal());</span>
+<span class="nc" id="L46">        System.out.printf(&quot;%-30s base: %7.2f €  →  final: %7.2f €%n&quot;,</span>
+<span class="nc" id="L47">                ebook.getNombre(),    ebook.getPrecio(),    ebook.calcularPrecioFinal());</span>
+<span class="nc" id="L48">        System.out.println();</span>
+
+        //  5. Crear pedido mixto para cliente1 
+<span class="nc" id="L51">        Pedido pedido1 = new Pedido(cliente1);</span>
+<span class="nc" id="L52">        pedido1.agregarProducto(teclado);</span>
+<span class="nc" id="L53">        pedido1.agregarProducto(monitor);</span>
+<span class="nc" id="L54">        pedido1.agregarProducto(software);</span>
+<span class="nc" id="L55">        pedido1.agregarProducto(ebook);</span>
+
+        //  6. Crear pedido solo digital para cliente2 
+<span class="nc" id="L58">        Pedido pedido2 = new Pedido(cliente2);</span>
+<span class="nc" id="L59">        pedido2.agregarProducto(licencia);</span>
+<span class="nc" id="L60">        pedido2.agregarProducto(ebook);</span>
+<span class="nc" id="L61">        pedido2.agregarProducto(software);</span>
+
+        //  7. Mostrar resúmenes 
+<span class="nc" id="L64">        System.out.println();</span>
+<span class="nc" id="L65">        pedido1.resumenPedido();</span>
+
+<span class="nc" id="L67">        System.out.println();</span>
+<span class="nc" id="L68">        pedido2.resumenPedido();</span>
+
+        //  8. Demostración de excepción: pedido sin productos 
+<span class="nc" id="L71">        System.out.println();</span>
+<span class="nc" id="L72">        System.out.println(&quot;=== DEMO EXCEPCIÓN: pedido sin productos ===&quot;);</span>
+        try {
+<span class="nc" id="L74">            Pedido pedidoVacio = new Pedido(cliente1);</span>
+<span class="nc" id="L75">            pedidoVacio.calcularTotal(); // debe lanzar IllegalStateException</span>
+<span class="nc" id="L76">        } catch (IllegalStateException e) {</span>
+<span class="nc" id="L77">            System.out.println(&quot;Excepción capturada correctamente: &quot; + e.getMessage());</span>
+<span class="nc" id="L78">        }</span>
+
+        // ── 9. Demostración de excepción: precio negativo ─────────────────
+<span class="nc" id="L81">        System.out.println();</span>
+<span class="nc" id="L82">        System.out.println(&quot;=== DEMO EXCEPCIÓN: precio negativo ===&quot;);</span>
+        try {
+<span class="nc" id="L84">            ProductoDigital invalido = new ProductoDigital(&quot;Producto inválido&quot;, -10.0, 1.0);</span>
+<span class="nc" id="L85">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L86">            System.out.println(&quot;Excepción capturada correctamente: &quot; + e.getMessage());</span>
+<span class="nc" id="L87">        }</span>
+<span class="nc" id="L88">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,7 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Sistema de Gestion de Pedidos,com.proyecto,Producto,11,36,1,3,2,13,2,6,1,5
+Sistema de Gestion de Pedidos,com.proyecto,Cliente,0,41,0,0,0,15,0,8,0,8
+Sistema de Gestion de Pedidos,com.proyecto,Pedido,15,185,2,10,5,50,4,16,2,12
+Sistema de Gestion de Pedidos,com.proyecto,ProductoFisico,5,56,1,3,1,16,1,8,0,7
+Sistema de Gestion de Pedidos,com.proyecto,Main,261,0,0,0,48,0,2,0,2,0
+Sistema de Gestion de Pedidos,com.proyecto,ProductoDigital,0,30,0,0,0,9,0,5,0,5

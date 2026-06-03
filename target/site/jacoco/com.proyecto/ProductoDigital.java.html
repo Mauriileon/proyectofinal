@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductoDigital.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Sistema de Gestion de Pedidos</a> &gt; <a href="index.source.html" class="el_package">com.proyecto</a> &gt; <span class="el_source">ProductoDigital.java</span></div><h1>ProductoDigital.java</h1><pre class="source lang-java linenums">package com.proyecto;
+
+
+/**
+ * Subclase de Producto que representa un producto digital
+ * (software, licencia, eBook, etc.).
+ *
+ * Implementa calcularPrecioFinal() aplicando un descuento del 10%
+ * sobre el precio base, simulando la ausencia de IVA o costes de distribución.
+ */
+public class ProductoDigital extends Producto {
+
+    // ── Atributo propio ────────────────────────────────────────────────────
+    private double tamañoMB;   // tamaño de descarga en megabytes
+
+    // ── Constructor ────────────────────────────────────────────────────────
+    public ProductoDigital(String nombre, double precio, double tamañoMB) {
+<span class="fc" id="L18">        super(nombre, precio);</span>
+<span class="fc" id="L19">        this.tamañoMB = tamañoMB;</span>
+<span class="fc" id="L20">    }</span>
+
+    // ── Getters y Setters ──────────────────────────────────────────────────
+    public double getTamañoMB() {
+<span class="fc" id="L24">        return tamañoMB;</span>
+    }
+
+    public void setTamañoMB(double tamañoMB) {
+<span class="fc" id="L28">        this.tamañoMB = tamañoMB;</span>
+<span class="fc" id="L29">    }</span>
+
+    // ── calcularPrecioFinal ────────────────────────────────────────────────
+    /**
+     * Precio final = precio base * 0.90 (descuento del 10%).
+     *
+     * @return precio con descuento aplicado
+     */
+    @Override
+    public double calcularPrecioFinal() {
+<span class="fc" id="L39">        return precio * 0.90;</span>
+    }
+
+    // ── toString ───────────────────────────────────────────────────────────
+    @Override
+    public String toString() {
+<span class="fc" id="L45">        return &quot;ProductoDigital{&quot;</span>
+                + &quot;nombre='&quot; + nombre + &quot;'&quot;
+                + &quot;, precio=&quot; + precio
+                + &quot;, tamañoMB=&quot; + tamañoMB
+<span class="fc" id="L49">                + &quot;, precioFinal=&quot; + calcularPrecioFinal()</span>
+                + &quot;}&quot;;
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
